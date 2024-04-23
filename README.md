@@ -1,7 +1,8 @@
-Blog para trabalho da MBA
+# Blog para trabalho da MBA
 
 
-# React + Vite + Contentfu
+
+# React + Vite + Contentful
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
