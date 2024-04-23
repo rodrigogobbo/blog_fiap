@@ -1,5 +1,8 @@
 # Blog para trabalho da MBA
 
+- Fazer  ver todos os post ( novo componente e paginação )
+- Completar o readme
+
 
 
 # React + Vite + Contentful
