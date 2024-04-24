@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Post from "../components/Post";
 import LayoutDefault from "../layout/LayoutDefault";
 import { client } from "../util/createClient";
-import { Link } from "react-router-dom";
+import AllPosts from '../components/AllPosts'; // Certifique-se de que este import está correto
 
 function PageHome() {
     const [posts, setPosts] = useState([]);
@@ -22,10 +22,11 @@ function PageHome() {
             setFeedbackPosts('Erro ao carregar os posts, run to the hills!');
         }
     };
+
     const getCategories = async () => {
         try {
             const response = await client.getEntries({
-                content_type: 'fiapBlogCategory', // Adjust content type as per your setup
+                content_type: 'fiapBlogCategory',
             });
     
             setCategories(response.items);
@@ -37,7 +38,7 @@ function PageHome() {
     useEffect(() => {
         getPosts();
         getCategories();
-    }, []); // ciclo de vida - no onLoad do componente
+    }, []); // Ciclo de vida para execução ao carregar o componente
     
     return (
         <LayoutDefault>
@@ -45,11 +46,7 @@ function PageHome() {
                 <div className="row">
                     <main className="col-md-8">
                         <h2 className="my-3">Área dos posts</h2>
-
-                        {posts.length === 0 && (
-                            <p>{feedbackPosts}</p>
-                        )}
-
+                        {posts.length === 0 && <p>{feedbackPosts}</p>}
                         {posts.map((post) => (
                             <Post
                                 key={post.sys.id}
@@ -59,9 +56,8 @@ function PageHome() {
                             />
                         ))}
 
-                        <Link to="/" className="btn btn-primary">
-                            Ver todos os posts
-                        </Link>
+                        {/* Componente separado para ver todos os posts */}
+                        <AllPosts />
                     </main>
                     <aside className="col-md-4">
                         <h2 className="my-3">Categorias</h2>
@@ -78,7 +74,7 @@ function PageHome() {
                 </div>
             </div>
         </LayoutDefault>
-    )
+    );
 }
 
 export default PageHome;
