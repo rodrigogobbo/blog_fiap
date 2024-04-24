@@ -1,28 +1,28 @@
 import React, { useState, useEffect } from 'react';
-import { client } from '../util/createClient'; // Verifique se o caminho está correto
+import { client } from '../util/createClient'; 
 
 function AllPosts() {
     const [posts, setPosts] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const [postsPerPage] = useState(1); // Quantidade de posts por página
+    const [postsPerPage] = useState(1); 
     const [isLoading, setIsLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
 
     useEffect(() => {
         fetchPosts();
-    }, [currentPage]); // Dependência para recarregar quando a página mudar
+    }, [currentPage]); 
 
     const fetchPosts = async () => {
         setIsLoading(true);
         try {
             const response = await client.getEntries({
-                content_type: 'fiapBlogPost', // Substitua pelo seu tipo de conteúdo real
+                content_type: 'fiapBlogPost', 
                 skip: (currentPage - 1) * postsPerPage,
                 limit: postsPerPage,
                 order: '-sys.createdAt'
             });
             if (response.items.length > 0) {
-                setPosts(response.items); // Ajustado para substituir os posts ao invés de acumular
+                setPosts(response.items); 
                 setHasMore(response.items.length === postsPerPage);
             } else {
                 setHasMore(false);
